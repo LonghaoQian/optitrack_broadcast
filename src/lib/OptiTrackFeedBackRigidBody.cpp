@@ -230,7 +230,7 @@ void OptiTrackFeedBackRigidBody::GetState(rigidbody_state& state)
     state.quaternion(1) = pose[1].q1;
     state.quaternion(2) = pose[1].q2;
     state.quaternion(3) = pose[1].q3;
-    state.isFeedbackNomral = OptiTrackFlag;
+    state.isFeedbackNomral = FeedbackState;
 }
 void OptiTrackFeedBackRigidBody::GetRaWVelocity(Vector3d& linear_velocity,Vector3d& angular_velocity)
 {
@@ -386,33 +386,15 @@ void OptiTrackFeedBackRigidBody::FeedbackDetector(int num_of_cycles)
 
     the info will only be printed once upon feedback status changing
     */
-    bool isFeedbackStateChanged = false;
-    if (OptiTrackFlag == true)
-    {
-        if (FeedbackState == false)
-        {
-            isFeedbackStateChanged = true;
-        }
+    if ( OptiTrackFlag == true) {
         FeedbackState = true;
         feedback_detector_counter = 0;// reset the counter to zero
     }else {
         feedback_detector_counter++;
         if (feedback_detector_counter >= num_of_cycles)
         {
-            if (FeedbackState == true)
-            {
-            isFeedbackStateChanged = true;
-            }
-             FeedbackState  =false;
+            FeedbackState  =false;
         }
     }
-    if ( isFeedbackStateChanged ) 
-    {
-        if (FeedbackState) {
-            ROS_INFO("OPTITRACK FEEDBACK NORMAL, TOPIC: %s", TopicName); 
-        } else {
-             ROS_WARN( "OPTITRACK FEEDBACK LOST!!, TOPIC: %s", TopicName); 
-        }
-    }
-    OptiTrackFlag = false; 
+    OptiTrackFlag = false;
 }

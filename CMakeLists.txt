@@ -131,7 +131,7 @@ include_directories(
 # )
 
 add_library(OptiTrackFeedbackRigidBody src/lib/OptiTrackFeedBackRigidBody.cpp)
-
+add_library(OptiTrackPublisher src/lib/OptiTrackPublisher.cpp)
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
@@ -147,13 +147,13 @@ add_executable(broadcast_position_velocity src/broadcast_position_velocity.cpp)
 add_dependencies(broadcast_position_velocity optitrack_broadcast_gencpp)
 target_link_libraries(broadcast_position_velocity ${catkin_LIBRARIES})
 target_link_libraries(broadcast_position_velocity OptiTrackFeedbackRigidBody)
-
+target_link_libraries(broadcast_position_velocity OptiTrackPublisher)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
 ## e.g. "rosrun someones_pkg node" instead of "rosrun someones_pkg someones_pkg_node"
 # set_target_properties(${PROJECT_NAME}_node PROPERTIES OUTPUT_NAME node PREFIX "")
-
+set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
