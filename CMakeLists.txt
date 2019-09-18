@@ -15,6 +15,7 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   tf2_ros
   tf2_eigen
+  nav_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -74,7 +75,8 @@ add_message_files(
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
    DEPENDENCIES
-   geometry_msgs 
+   geometry_msgs
+   nav_msgs
    std_msgs
 )
 
@@ -132,6 +134,8 @@ include_directories(
 
 add_library(OptiTrackFeedbackRigidBody src/lib/OptiTrackFeedBackRigidBody.cpp)
 add_library(OptiTrackPublisher src/lib/OptiTrackPublisher.cpp)
+add_library(Mocap_emulator src/lib/Mocap_emulator.cpp)
+
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
@@ -148,6 +152,13 @@ add_dependencies(broadcast_position_velocity optitrack_broadcast_gencpp)
 target_link_libraries(broadcast_position_velocity ${catkin_LIBRARIES})
 target_link_libraries(broadcast_position_velocity OptiTrackFeedbackRigidBody)
 target_link_libraries(broadcast_position_velocity OptiTrackPublisher)
+
+add_executable(emulator_position_velocity src/emulator_position_velocity.cpp)
+add_dependencies(emulator_position_velocity optitrack_broadcast_gencpp)
+target_link_libraries(emulator_position_velocity ${catkin_LIBRARIES})
+target_link_libraries(emulator_position_velocity Mocap_emulator)
+
+
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
