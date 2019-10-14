@@ -28,7 +28,7 @@ void Mocap_emulator::PublishData()
     MessageMocap_.quaternion[1] = Drone_state_.pose.pose.orientation.x;
     MessageMocap_.quaternion[2] = Drone_state_.pose.pose.orientation.y;
     MessageMocap_.quaternion[3] = Drone_state_.pose.pose.orientation.z;
-
+    MessageMocap_.header = Drone_state_.header;
     pubmocap_.publish(MessageMocap_);
 }
 void Mocap_emulator::SubscribeFromGazebo(const nav_msgs::Odometry& msg)

@@ -60,6 +60,7 @@ void OptiTrackPublisher::PublishData(rigidbody_state& StateInput)
                 for( int i = 0; i < 4; i++) {
                     MessageMocap_.quaternion[i] = StateInput.quaternion(i);
                 }
+            MessageMocap_.header.stamp = ros::Time().fromSec(StateInput.time_stamp);
             publisher_.publish(MessageMocap_);
             break;
         }
@@ -82,6 +83,7 @@ void OptiTrackPublisher::PublishData(rigidbody_state& StateInput)
                 for( int i = 0; i < 4; i++) {
                     MessageMocap_.quaternion[i] = StateInput.quaternion(i);
                 }
+            MessageMocap_.header.stamp = ros::Time().fromSec(StateInput.time_stamp);
             publisher_.publish(MessageMocap_);
             break;
         }
