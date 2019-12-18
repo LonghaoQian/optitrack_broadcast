@@ -1,3 +1,5 @@
+<?xml version="1.0"?>
 <launch>
- <node pkg = "optitrack_broadcast" name = "mocap_emulator" type = "emulator_position_velocity" output="screen" args="UAV0 UAV1 Payload"/>
+ <arg name="objects" default="UAV0 UAV1 UAV2 Payload"/>
+ <node pkg = "optitrack_broadcast" name = "mocap_emulator" type = "emulator_position_velocity" output="screen" args="$(arg objects)"/>
 </launch>

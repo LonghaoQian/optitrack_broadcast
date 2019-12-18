@@ -21,13 +21,28 @@ void Mocap_emulator::PublishData()
     MessageMocap_.velocity[1] = Drone_state_.twist.twist.linear.y;
     MessageMocap_.velocity[2] = Drone_state_.twist.twist.linear.z;
 
-    MessageMocap_.angular_velocity[0] = Drone_state_.twist.twist.angular.x;
-    MessageMocap_.angular_velocity[1] = Drone_state_.twist.twist.angular.y;
-    MessageMocap_.angular_velocity[2] = Drone_state_.twist.twist.angular.z;
     MessageMocap_.quaternion[0] = Drone_state_.pose.pose.orientation.w;
     MessageMocap_.quaternion[1] = Drone_state_.pose.pose.orientation.x;
     MessageMocap_.quaternion[2] = Drone_state_.pose.pose.orientation.y;
     MessageMocap_.quaternion[3] = Drone_state_.pose.pose.orientation.z;
+
+    quaternion(0) = MessageMocap_.quaternion[0];
+    quaternion(1) = MessageMocap_.quaternion[1];
+    quaternion(2) = MessageMocap_.quaternion[2];
+    quaternion(3) = MessageMocap_.quaternion[3];
+
+    R_IB = QuaterionToRotationMatrix(quaternion);
+    // the angular velocity from gazebo is in inertial frame
+    omega_i(0) = Drone_state_.twist.twist.angular.x;
+    omega_i(1) = Drone_state_.twist.twist.angular.y;
+    omega_i(2) = Drone_state_.twist.twist.angular.z;
+
+    omega_b = R_IB.transpose() * omega_i; 
+    // publish angular velocity in body-fixed frame
+    MessageMocap_.angular_velocity[0] = omega_b(0);
+    MessageMocap_.angular_velocity[1] = omega_b(1);
+    MessageMocap_.angular_velocity[2] = omega_b(2);
+
     MessageMocap_.header = Drone_state_.header;
     pubmocap_.publish(MessageMocap_);
 }

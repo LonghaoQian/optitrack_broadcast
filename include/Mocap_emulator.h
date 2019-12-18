@@ -5,6 +5,8 @@
 #include <geometry_msgs/Twist.h>
 #include <nav_msgs/Odometry.h>
 #include <iostream>
+#include <math_utils.h>
+using namespace Eigen;
 class Mocap_emulator{
     public:
         Mocap_emulator(const char* PubTopicName,
@@ -19,4 +21,8 @@ class Mocap_emulator{
         ros::Subscriber subgazebo_;// receiving
         optitrack_broadcast::Mocap   MessageMocap_;
         nav_msgs::Odometry           Drone_state_;
+        Matrix3f R_IB;
+        Vector4f quaternion;
+        Vector3f omega_b;// angular velocity in body-fixed frame
+        Vector3f omega_i;// angular velocity in inertial frame
 };
