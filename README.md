@@ -1,5 +1,7 @@
 # OptiTrack Process Node For Drone Command and Control
 
+[![Generic badge](https://img.shields.io/badge/OptiTrack%20Data%20Processing-latest-brightgreen)](https://shields.io/) [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity) 
+
 ## Description：
 
 The OptiTrack node is responsible for processing OptiTrack position feedback for quadrotor experiments in [Flight System and Control Lab (FSC)](https://www.flight.utias.utoronto.ca/fsc/index.php/payload/). 
