@@ -56,7 +56,7 @@ FILES
 Mocap.msg
 )
 
-## The Velocity estimation algorithm
+## The velocity estimation algorithm
 
 The Motive software only streams the position and the attitude of the specified rigid bodies to the ground station computer, so the OptiTrack node calculates the velocity and angular velocity of the rigid bodies based on the following algorithms. We denote ![equation](https://latex.codecogs.com/gif.latex?%5Cboldsymbol%7Bx%7D_%7Braw%7D) as the raw data streamed form the Motive software. The velocity estimation at the Nth time step is denoted as ![equation](https://latex.codecogs.com/gif.latex?%5Cboldsymbol%7Bv%7D_%7BI%2Craw%7D%5BN%5D), obtained as follows:
 
