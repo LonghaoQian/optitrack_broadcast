@@ -42,18 +42,26 @@ The default name list is `"UAV, cf1, cf2, cf3, cf4, cf5"`.
 
 The OptiTrack node utilizes a customized Ros data structure `Mocap.msg` to reduce the wireless communication burden for experiments. `Mocap.msg` is defined as follows:
 
->std_msgs/Header header
+std_msgs/Header header
+
 float32[3] position ## [m]
+
 float32[3] velocity ## [m/s]
+
 float32[3] angular_velocity ## [rad/s]
+
 float32[4] quaternion ##
 
 Copy  `Mocap.msg` to the msg folder of your project and add this customized message type to your `CMakelist.txt` in oder to use the data type:
 
->add_message_files(
+add_message_files(
+
 DIRECTORY msg
+
 FILES
+
 Mocap.msg
+
 )
 
 ## The velocity estimation algorithm
