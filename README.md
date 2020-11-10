@@ -9,6 +9,12 @@ The OptiTrack node shall be download and installed on the ground station desktop
 
 ## User guide:
 
+- Intall and make sure you can run vrpn_client_ros pacakge first: http://wiki.ros.org/vrpn_client_ros . This pacakge is used to receive the data stream from the Motive software.
+
+> 1. you may either download and complie the source file from https://github.com/ros-drivers/vrpn_client_ros, or `sudo apt-get install ros-kinetic-vrpn-client-ros -y`. Change the kinetic to the ubuntu version you are using. 
+> 2. `roslaunch vrpn_client_ros sample.launch`
+> 3. use rostopic list to check whether the rigid-body information from the Motive software is published and updated.
+
 - You may install the OptiTrack node using the following commands:
 
 > 1. $ cd yourws/src/
