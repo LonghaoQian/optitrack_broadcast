@@ -21,7 +21,9 @@ int main(int argc, char **argv)
 
     // 频率
     ros::Rate rate(60.0);
-    
+
+    const std::string default_msg_type = "Mocap";
+    const std::string msg_type = nh.param("msg_type", default_msg_type);
     //
     int notfeedbackcounter = 2;
 
@@ -71,7 +73,7 @@ int main(int argc, char **argv)
             PubTopic PubTopic;
             strcpy (PubTopic.str, "/mocap/");
             strcat (PubTopic.str, argv[i]);
-            PubList.emplace_back(new OptiTrackPublisher(PubTopic.str,nh,1000,"Mocap"));
+            PubList.emplace_back(new OptiTrackPublisher(PubTopic.str,nh,1000, msg_type.c_str()));
             std::cout << " publish processed data to :  "<< PubTopic.str << std::endl;
         }
     } else {
