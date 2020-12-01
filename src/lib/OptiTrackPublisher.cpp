@@ -65,7 +65,15 @@ void OptiTrackPublisher::PublishData(rigidbody_state& StateInput)
             break;
         }
         case 1: {
-            /* TO DO */
+            geometry_msgs::Pose& pose = MessageOdometry_.pose.pose;
+            geometry_msgs::Twist& twist = MessageOdometry_.twist.twist;
+            for (int i = 0; i < 4; ++i)
+                *(&pose.orientation.x + (i + 3) % 4) = StateInput.quaternion[i];
+            Eigen::Map<Eigen::Vector3d>(&pose.position.x) = StateInput.Position;
+            Eigen::Map<Eigen::Vector3d>(&twist.linear.x) = StateInput.V_I;
+            Eigen::Map<Eigen::Vector3d>(&twist.angular.x) = StateInput.Omega_BI;
+
+            MessageOdometry_.header.stamp = ros::Time::now();
             publisher_.publish(MessageOdometry_);
             break;
         }
